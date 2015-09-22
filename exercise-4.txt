@@ -1,0 +1,98 @@
+// I make a mistake at the beggining: I mixed up REPLACE and UPDATE
+mysql> DESCRIBE Account;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| email      | varchar(255) | NO   |     | NULL    |                |
+| password   | varchar(40)  | NO   |     | NULL    |                |
+| createdOn  | datetime     | NO   |     | NULL    |                |
+| modifiedOn | datetime     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> REPLACE INTO Account (email, password) VALUES('123@abc.com', 'A5F!hj7KK');
+Query OK, 1 row affected, 1 warning (0.04 sec)
+
+mysql> SELECT * FROM Account;
++----+-------------+-----------+---------------------+------------+
+| id | email       | password  | createdOn           | modifiedOn |
++----+-------------+-----------+---------------------+------------+
+|  1 |             |           | 0000-00-00 00:00:00 | NULL       |
+|  2 | 123@abc.com | A5F!hj7KK | 0000-00-00 00:00:00 | NULL       |
++----+-------------+-----------+---------------------+------------+
+2 rows in set (0.00 sec)
+
+//I tried to fix it, but I did worst...
+mysql> DELETE FROM Account;
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> SELECT * FROM Account;                                                                                                            
+Empty set (0.00 sec)
+
+mysql> INSERT INTO decodemtl_addressbook.Account () VALUES();                                                                            
+Query OK, 1 row affected, 3 warnings (0.01 sec)
+
+mysql> SELECT * FROM Account
+    -> ;
++----+-------+----------+---------------------+------------+
+| id | email | password | createdOn           | modifiedOn |
++----+-------+----------+---------------------+------------+
+|  3 |       |          | 0000-00-00 00:00:00 | NULL       |
++----+-------+----------+---------------------+------------+
+1 row in set (0.00 sec)
+
+/* So, instead of updating id 1, I did the fourth exercise 
+* "Modify the decodemtl_addressbook.Account row"
+* with id3 row
+*/
+
+mysql> UPDATE Account SET email = "allo@abc.com";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM Account;
++----+--------------+----------+---------------------+------------+
+| id | email        | password | createdOn           | modifiedOn |
++----+--------------+----------+---------------------+------------+
+|  3 | allo@abc.com |          | 0000-00-00 00:00:00 | NULL       |
++----+--------------+----------+---------------------+------------+
+1 row in set (0.00 sec)
+
+/*But the next one is well done:
+* Modify the decodemtl_addressbook.AddressBook row :
+*/
+
+mysql> SELECT * FROM  AddressBook;
++----+-----------+------+---------------------+------------+
+| id | accountId | name | createdOn           | modifiedOn |
++----+-----------+------+---------------------+------------+
+|  1 |         0 |      | 0000-00-00 00:00:00 | NULL       |
++----+-----------+------+---------------------+------------+
+1 row in set (0.00 sec)
+mysql> UPDATE AddressBook SET name = "Marie Tremblay";                                                                                  
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM  AddressBook;
++----+-----------+----------------+---------------------+------------+
+| id | accountId | name           | createdOn           | modifiedOn |
++----+-----------+----------------+---------------------+------------+
+|  1 |         0 | Marie Tremblay | 0000-00-00 00:00:00 | NULL       |
++----+-----------+----------------+---------------------+------------+
+1 row in set (0.01 sec)
+
+//Modify the three decodemtl_addressbook.Entry rows using one query only
+mysql> UPDATE Entry SET type = "work";                                                                                                   
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 3  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM  Entry;                                                                                                             
++----+---------------+-----------+----------+----------+------+---------+------------------------+----------------+------------------+-----------------+-----------------+
+| id | addressBookId | firstName | lastName | birthday | type | subtype | contentLineOne         | contentLineTwo | contentLineThree | contentLineFour | contentLineFive |
++----+---------------+-----------+----------+----------+------+---------+------------------------+----------------+------------------+-----------------+-----------------+
+|  1 |             0 | Marie     | NULL     | NULL     | work | phone   | 222-222-2222           | NULL           | NULL             | NULL            | NULL            |
+|  2 |             0 | Paul      | NULL     | NULL     | work | address | 123, rue ABC, Montreal | NULL           | NULL             | NULL            | NULL            |
+|  3 |             0 | Jean      | NULL     | NULL     | work | email   | jean123@abc.com        | NULL           | NULL             | NULL            | NULL            |
++----+---------------+-----------+----------+----------+------+---------+------------------------+----------------+------------------+-----------------+-----------------+
+3 rows in set (0.00 sec)
