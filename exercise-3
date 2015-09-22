@@ -1,0 +1,16 @@
+
+
+//Retrieve data from the previously inserted decodemtl_addressbook.Account row
+
+mysql> SELECT * FROM Account;
+
+
+
+//Retrieve data from the previously inserted decodemtl_addressbook.AddressBook row
+
+mysql> SELECT * FROM AddressBook;
+
+
+//Retrieve data from the previously inserted decodemtl_addressbook.Entry rows
+
+mysql> SELECT * FROM Entry;
