@@ -1,0 +1,85 @@
+// Which Account owns the most Address Books?
+
+SELECT accountId, name, COUNT(*) FROM AddressBook GROUP BY accountId ORDER BY COUNT(*) DESC LIMIT 5;                              
++-----------+------------------------------+----------+
+| accountId | name                         | COUNT(*) |
++-----------+------------------------------+----------+
+|         5 | Justo Nec Incorporated       |       19 |
+|        14 | Varius Incorporated          |       19 |
+|        42 | Libero Proin Sed Corporation |       18 |
+|        58 | Sed Dui Corporation          |       18 |
+|         2 | Fermentum Fermentum Company  |       17 |
++-----------+------------------------------+----------+
+5 rows in set (0.00 sec)
+
+// Which Address Book contains the most Entries?
+ysql> SELECT addressBookId, COUNT(*) FROM Entry GROUP BY addressBookId ORDER BY COUNT(*) DESC LIMIT 5;
++---------------+----------+
+| addressBookId | COUNT(*) |
++---------------+----------+
+|            37 |       52 |
+|            20 |       50 |
+|            50 |       49 |
+|             8 |       48 |
+|            89 |       48 |
++---------------+----------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT * FROM Entry WHERE addressBookId = '37';
++------+---------------+-----------+------------+---------------------+-------+---------+---------------------------------------+-----------------------+------------------------+----------------------------------------------+-----------------+
+| id   | addressBookId | firstName | lastName   | birthday            | type  | subtype | contentLineOne                        | contentLineTwo        | contentLineThree       | contentLineFour                              | contentLineFive |
++------+---------------+-----------+------------+---------------------+-------+---------+---------------------------------------+-----------------------+------------------------+----------------------------------------------+-----------------+
+|   52 |            37 | Sophia    | Conway     | 1967-09-20 06:08:24 | other | phone   | (341) 778-8112                        | NULL                  | NULL                   | NULL                                         | NULL            |
+|  113 |            37 | Uta       | Todd       | 1977-05-21 07:25:30 | work  | phone   | (886) 969-2377                        | NULL                  | NULL                   | NULL                                         | NULL            |
+|  149 |            37 | Ivan      | Gates      | 1979-02-25 04:43:26 | work  | phone   | (536) 266-1185                        | NULL                  | NULL                   | NULL                                         | NULL            |
+|  158 |            37 | Veda      | Jimenez    | 1998-10-23 23:08:53 | other | phone   | (227) 772-1457                        | NULL                  | NULL                   | NULL                                         | NULL            |
+|  289 |            37 | Regan     | Kirby      | 1969-08-27 11:13:29 | other | phone   | (580) 372-7946                        | NULL                  | NULL                   | NULL                                         | NULL            |
+|  394 |            37 | Alana     | Nicholson  | 1962-06-01 16:11:22 | home  | phone   | (857) 293-1360                        | NULL                  | NULL                   | NULL                                         | NULL            |
+|  444 |            37 | Tyler     | Reynolds   | 1974-08-13 05:42:29 | work  | phone   | 1-734-817-4146                        | NULL                  | NULL                   | NULL                                         | NULL            |
+|  475 |            37 | Lane      | Castro     | 1966-11-12 08:20:19 | work  | phone   | 1-228-884-4638                        | NULL                  | NULL                   | NULL                                         | NULL            |
+|  735 |            37 | Lara      | Olson      | 1959-05-05 05:58:48 | home  | email   | Quisque.tincidunt.pede@eget.com       | NULL                  | NULL                   | NULL                                         | NULL            |
+|  820 |            37 | Nell      | Bass       | 1952-07-16 10:10:42 | work  | email   | ullamcorper.magna.Sed@vehiculaet.ca   | NULL                  | NULL                   | NULL                                         | NULL            |
+|  867 |            37 | Karina    | Hayes      | 1966-02-16 20:57:45 | home  | email   | ac.ipsum.Phasellus@incursuset.co.uk   | NULL                  | NULL                   | NULL                                         | NULL            |
+| 1041 |            37 | Carolyn   | Sanders    | 1983-07-07 17:51:36 | work  | email   | Etiam.ligula.tortor@liberoInteger.net | NULL                  | NULL                   | NULL                                         | NULL            |
+| 1056 |            37 | Jordan    | Williams   | 1986-06-25 14:12:43 | other | email   | metus@diam.co.uk                      | NULL                  | NULL                   | NULL                                         | NULL            |
+| 1343 |            37 | Charity   | Mckinney   | 1960-03-14 03:44:11 | work  | email   | habitant.morbi@amet.co.uk             | NULL                  | NULL                   | NULL                                         | NULL            |
+| 1383 |            37 | Holmes    | Mcguire    | 1998-04-16 19:36:42 | other | email   | et.rutrum.non@est.ca                  | NULL                  | NULL                   | NULL                                         | NULL            |
+| 1442 |            37 | Malcolm   | Sosa       | 1996-02-27 07:52:25 | work  | email   | purus.mauris@vulputate.co.uk          | NULL                  | NULL                   | NULL                                         | NULL            |
+| 1493 |            37 | Nichole   | Ortega     | 1955-02-15 09:58:33 | home  | email   | quam.elementum@pedesagittisaugue.org  | NULL                  | NULL                   | NULL                                         | NULL            |
+| 1503 |            37 | Colin     | Head       | 1946-10-25 08:34:09 | home  | email   | lorem@etnetuset.org                   | NULL                  | NULL                   | NULL                                         | NULL            |
+| 1517 |            37 | Gage      | Marshall   | 1970-04-14 17:11:21 | work  | email   | enim.Nunc@InfaucibusMorbi.ca          | NULL                  | NULL                   | NULL                                         | NULL            |
+| 1722 |            37 | Lamar     | Briggs     | 1973-08-05 05:39:11 | other | email   | Duis@Incondimentum.ca                 | NULL                  | NULL                   | NULL                                         | NULL            |
+| 1759 |            37 | Solomon   | Calderon   | 1993-05-15 17:10:02 | other | email   | arcu@dolor.com                        | NULL                  | NULL                   | NULL                                         | NULL            |
+| 1942 |            37 | Lana      | Bates      | 1979-09-17 12:07:42 | work  | address | 9682 Ac St.                           | Turrialba             | C                      | Netherlands                                  | 71364           |
+| 1977 |            37 | Amber     | Bonner     | 1952-03-12 22:59:03 | work  | address | 722-2116 Sollicitudin Street          | Istanbul              | Ist                    | China                                        | YD0 4FW         |
+| 1985 |            37 | Carla     | Perez      | 1993-01-18 08:20:37 | other | address | 789-305 Sit Rd.                       | Athens                | GA                     | Bhutan                                       | 87586           |
+| 2099 |            37 | Octavia   | Booth      | 1952-10-19 02:36:43 | home  | address | 1384 In, Ave                          | Tarnów                | MP                     | Benin                                        | 12192           |
+| 2351 |            37 | Irene     | Cantrell   | 1957-11-26 00:53:31 | other | address | Ap #402-2211 Donec St.                | Temuka                | SI                     | Qatar                                        | 68204           |
+| 2441 |            37 | Kenneth   | Bowman     | 1953-07-06 19:14:13 | work  | address | 8668 Facilisis. Street                | Castri di Lecce       | Puglia                 | Saint Helena, Ascension and Tristan da Cunha | 3113            |
+| 2458 |            37 | Bianca    | Bradford   | 1975-10-16 01:39:49 | other | address | Ap #894-8314 Egestas. Ave             | Châlons-en-Champagne  | CH                     | Lebanon                                      | 11212           |
+| 2464 |            37 | Yoshio    | Cunningham | 1956-02-16 18:05:01 | home  | address | 272-4593 Sed Rd.                      | Beuzet                | Namen                  | Ethiopia                                     | 60759-292       |
+| 2529 |            37 | Ora       | Montoya    | 1972-02-05 16:13:11 | other | address | 517-1837 Eu, Road                     | Istanbul              | Ist                    | Montenegro                                   | 7747NO          |
+| 2700 |            37 | Charde    | Burns      | 1945-09-10 14:24:33 | home  | address | 245-7603 Nec Road                     | Tirupati              | Andhra Pradesh         | Saint Helena, Ascension and Tristan da Cunha | C2P 6J8         |
+| 2854 |            37 | Danielle  | Strickland | 2000-01-01 04:09:20 | other | address | Ap #805-3380 Amet Avenue              | Minto                 | Ontario                | Cook Islands                                 | A64 0KT         |
+| 2914 |            37 | Gary      | Hamilton   | 1992-01-21 11:45:09 | work  | address | Ap #103-771 Ac Rd.                    | Sioux City            | IA                     | Micronesia                                   | 86160           |
+| 2992 |            37 | Ingrid    | Hewitt     | 1949-03-03 07:11:32 | home  | address | P.O. Box 436, 1779 Nunc, Rd.          | Giurdignano           | PUG                    | Saint Martin                                 | 44223-670       |
+| 3057 |            37 | Alma      | Gaines     | 1968-06-13 21:23:40 | other | address | 9885 Lorem Road                       | Lede                  | OV                     | Sweden                                       | 42565-000       |
+| 3067 |            37 | Hyacinth  | Blake      | 1951-04-17 19:35:27 | home  | address | Ap #583-4317 Ullamcorper Avenue       | Gijón                 | Principado de Asturias | French Southern Territories                  | 66759           |
+| 3082 |            37 | Yetta     | Le         | 1994-07-20 10:14:18 | other | address | 279-7974 Donec Rd.                    | Berlin                | Berlin                 | Malawi                                       | 9092            |
+| 3084 |            37 | Amal      | Solis      | 1979-05-23 16:10:21 | other | address | P.O. Box 278, 1586 Tellus Av.         | Allahabad             | UP                     | South Georgia and The South Sandwich Islands | 8834            |
+| 3174 |            37 | Avye      | Fletcher   | 1961-10-18 11:03:58 | work  | address | 872-5152 Et Ave                       | Rankweil              | Vbg                    | Bolivia                                      | 22638           |
+| 3182 |            37 | Quynn     | Mccormick  | 1960-06-27 08:24:23 | other | address | P.O. Box 887, 9607 Nec Av.            | Galway                | C                      | Oman                                         | 4330            |
+| 3334 |            37 | Idola     | Reyes      | 1998-04-21 15:19:44 | home  | address | 895-8147 Scelerisque Ave              | Gdańsk                | Pomorskie              | French Southern Territories                  | 79404           |
+| 3352 |            37 | Macon     | Dillon     | 1990-09-02 08:05:04 | other | address | 247-905 Rutrum. Av.                   | Hollogne-sur-Geer     | Luik                   | Korea, South                                 | 9578            |
+| 3377 |            37 | Tamara    | Ochoa      | 1993-01-20 06:54:43 | work  | address | 682-5154 Nunc St.                     | Lac Ste. Anne         | AB                     | Turkmenistan                                 | 1714            |
+| 3434 |            37 | Ronan     | Russo      | 1976-06-28 04:31:34 | home  | address | 8307 Ante St.                         | Candela               | Puglia                 | Seychelles                                   | 6148            |
+| 3517 |            37 | Beatrice  | Hendricks  | 1947-06-07 20:59:40 | work  | address | 144-5354 Egestas Av.                  | Bundaberg             | QLD                    | Mexico                                       | 61493-757       |
+| 3520 |            37 | Halla     | Potts      | 1948-11-20 00:59:32 | work  | address | 7481 Nisl. Street                     | Ahmedabad             | GJ                     | Turks and Caicos Islands                     | 3489            |
+| 3639 |            37 | Kaden     | House      | 1964-12-26 08:00:47 | home  | address | 4996 Nulla St.                        | Orange                | New South Wales        | Australia                                    | 23132           |
+| 3787 |            37 | Elton     | Mercado    | 1973-05-30 00:42:37 | other | address | P.O. Box 379, 7331 Pellentesque, Av.  | Patalillo             | San José               | Norfolk Island                               | 10174           |
+| 3791 |            37 | Dominic   | Petersen   | 1976-04-25 19:35:29 | home  | address | 920-1053 Id Av.                       | Wellington            | North Island           | Cambodia                                     | OF0 4LS         |
+| 3812 |            37 | Gwendolyn | Sherman    | 1980-12-16 16:40:42 | work  | address | 8682 Augue St.                        | San Mauro Cilento     | CAM                    | Botswana                                     | 40245           |
+| 3819 |            37 | Wynne     | Harrington | 1989-12-21 00:21:48 | work  | address | 8405 A Road                           | Vienna                | Wie                    | United Kingdom (Great Britain)               | 4930            |
+| 3839 |            37 | Amir      | Avery      | 1972-09-28 18:51:47 | home  | address | 6083 Non, Av.                         | Jackson               | Mississippi            | Somalia                                      | 60309           |
++------+---------------+-----------+------------+---------------------+-------+---------+---------------------------------------+-----------------------+------------------------+----------------------------------------------+-----------------+
+52 rows in set (0.00 sec)
