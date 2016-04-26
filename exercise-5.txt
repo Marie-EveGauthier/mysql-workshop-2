@@ -1,7 +1,21 @@
-//Delete all data from decodemtl_addressbook.Entry without using a DELETE statement
+// Delete all data from decodemtl_addressbook.Entry without using a DELETE statement
+
+mysql> SELECT COUNT(*) AS numEntry FROM Entry;                                                                           
++----------+
+| numEntry |
++----------+
+|     4003 |
++----------+
+1 row in set (0.02 sec)
 
 mysql> TRUNCATE Entry;
-Query OK, 0 rows affected (0.01 sec)
+Query OK, 0 rows affected (0.04 sec)
 
-mysql> SELECT * FROM Entry;
-Empty set (0.00 sec)
+mysql> SELECT COUNT(*) AS numEntry FROM Entry;                                                                                
++----------+
+| numEntry |
++----------+
+|        0 |
++----------+
+1 row in set (0.00 sec)
+
