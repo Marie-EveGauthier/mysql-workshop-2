@@ -1,47 +1,95 @@
-/* Insert one row into decodemtl_addressbook.Account
-*Insert one row into decodemtl_addressbook.AddressBook
-*Insert three rows into decodemtl_addressbook.Entry
-*/
+//Insert one row into decodemtl_addressbook.Account
 
-mysql> INSERT INTO decodemtl_addressbook.Account () VALUES();
-Query OK, 1 row affected, 3 warnings (0.01 sec)
+mysql> describe Account;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| email      | varchar(255) | NO   |     | NULL    |                |
+| password   | varchar(40)  | NO   |     | NULL    |                |
+| createdOn  | datetime     | NO   |     | NULL    |                |
+| modifiedOn | datetime     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
 
-mysql> INSERT INTO decodemtl_addressbook.AddressBook () VALUES();                                                                        
-Query OK, 1 row affected, 3 warnings (0.01 sec)
+mysql> SELECT COUNT(*) AS numAccount FROM Account;                                                                       
++------------+
+| numAccount |
++------------+
+|       1000 |
++------------+
+1 row in set (0.00 sec)
 
-mysql> DESCRIBE Entry;
-+------------------+---------------------------------+------+-----+---------+----------------+
-| Field            | Type                            | Null | Key | Default | Extra          |
-+------------------+---------------------------------+------+-----+---------+----------------+
-| id               | int(11)                         | NO   | PRI | NULL    | auto_increment |
-| addressBookId    | int(11)                         | NO   |     | NULL    |                |
-| firstName        | varchar(255)                    | NO   |     | NULL    |                |
-| lastName         | varchar(255)                    | YES  |     | NULL    |                |
-| birthday         | datetime                        | YES  |     | NULL    |                |
-| type             | enum('home','work','other')     | NO   |     | NULL    |                |
-| subtype          | enum('phone','address','email') | NO   |     | NULL    |                |
-| contentLineOne   | varchar(255)                    | NO   |     | NULL    |                |
-| contentLineTwo   | varchar(255)                    | YES  |     | NULL    |                |
-| contentLineThree | varchar(255)                    | YES  |     | NULL    |                |
-| contentLineFour  | varchar(255)                    | YES  |     | NULL    |                |
-| contentLineFive  | varchar(255)                    | YES  |     | NULL    |                |
-+------------------+---------------------------------+------+-----+---------+----------------+
-12 rows in set (0.01 sec)
-
-mysql> INSERT INTO decodemtl_addressbook.Entry (firstName, type, subtype, contentLineOne) VALUES('Marie','home', 'phone','222-222-2222' );       
+mysql> INSERT INTO Account (email, password) VALUES ("abc@abc.com", "1234");
 Query OK, 1 row affected, 1 warning (0.01 sec)
 
-mysql> INSERT INTO decodemtl_addressbook.Entry (firstName, type, subtype, contentLineOne) VALUES('Paul','work', 'address','123, rue ABC, Montreal' );                                                                                                                             
-Query OK, 1 row affected, 1 warning (0.01 sec)
+mysql> SELECT * FROM Account ORDER BY id DESC LIMIT 5;
++------+--------------------------------------------------+-------------+---------------------+---------------------+
+| id   | email                                            | password    | createdOn           | modifiedOn          |
++------+--------------------------------------------------+-------------+---------------------+---------------------+
+| 1001 | abc@abc.com                                      | 1234        | 0000-00-00 00:00:00 | NULL                |
+| 1000 | sollicitudin.orci@nectellusNunc.co.uk            | LNV07VMJ9QL | 2014-10-24 17:14:22 | 2014-11-20 13:02:47 |
+|  999 | nec.euismod.in@enimCurabitur.ca                  | ZHF19EEQ0UZ | 2016-01-22 10:14:53 | 2015-03-30 05:46:02 |
+|  998 | volutpat.Nulla.dignissim@loremfringillaornare.ca | STV48BUF6TQ | 2015-04-10 06:18:50 | 2015-08-29 12:53:08 |
+|  997 | aliquam@luctus.com                               | VCP22JBM1RD | 2016-05-23 07:25:17 | 2016-06-10 22:12:45 |
++------+--------------------------------------------------+-------------+---------------------+---------------------+
+5 rows in set (0.01 sec)
 
-mysql> INSERT INTO decodemtl_addressbook.Entry (firstName, type, subtype, contentLineOne) VALUES('Jean','home', 'email','jean123@abc.com' );                                                                                                                                      
-Query OK, 1 row affected, 1 warning (0.01 sec)
+mysql> UPDATE Account  SET createdOn=NOW() WHERE id=1001 LIMIT 1;                                                
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
 
-mysql> SELECT * FROM Entry;+----+---------------+-----------+----------+----------+------+---------+------------------------+----------------+------------------+-----------------+-----------------+
-| id | addressBookId | firstName | lastName | birthday | type | subtype | contentLineOne         | contentLineTwo | contentLineThree | contentLineFour | contentLineFive |
-+----+---------------+-----------+----------+----------+------+---------+------------------------+----------------+------------------+-----------------+-----------------+
-|  1 |             0 | Marie     | NULL     | NULL     | home | phone   | 222-222-2222           | NULL           | NULL             | NULL            | NULL            |
-|  2 |             0 | Paul      | NULL     | NULL     | work | address | 123, rue ABC, Montreal | NULL           | NULL             | NULL            | NULL            |
-|  3 |             0 | Jean      | NULL     | NULL     | home | email   | jean123@abc.com        | NULL           | NULL             | NULL            | NULL            |
-+----+---------------+-----------+----------+----------+------+---------+------------------------+----------------+------------------+-----------------+-----------------+
+mysql> UPDATE Account  SET modifiedOn=NOW() WHERE id=1001 LIMIT 1;                                                            
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM Account WHERE id=1001;
++------+-------------+----------+---------------------+---------------------+
+| id   | email       | password | createdOn           | modifiedOn          |
++------+-------------+----------+---------------------+---------------------+
+| 1001 | abc@abc.com | 1234     | 2016-04-26 18:04:54 | 2016-04-26 18:05:13 |
++------+-------------+----------+---------------------+---------------------+
+1 row in set (0.00 sec)
+
+//Insert one row into decodemtl_addressbook.AddressBook
+mysql> describe AddressBook;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| accountId  | int(11)      | NO   |     | NULL    |                |
+| name       | varchar(255) | NO   |     | NULL    |                |
+| createdOn  | datetime     | NO   |     | NULL    |                |
+| modifiedOn | datetime     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+mysql> INSERT INTO AddressBook (accountId, name, createdOn, modifiedOn) VALUES (1001, "Alfred Bertrand Couillard", NOW(), NOW());
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM AddressBook ORDER BY id DESC LIMIT 5;
++------+-----------+---------------------------+---------------------+---------------------+
+| id   | accountId | name                      | createdOn           | modifiedOn          |
++------+-----------+---------------------------+---------------------+---------------------+
+| 1101 |      1001 | Alfred Bertrand Couillard | 2016-04-26 18:00:14 | 2016-04-26 18:00:14 |
+| 1100 |        20 | Neque Industries          | 2016-01-28 16:16:20 | 2016-04-14 20:46:41 |
+| 1099 |        87 | In Aliquet Lobortis Ltd   | 2015-11-18 11:21:14 | 2015-03-10 08:20:19 |
+| 1098 |        59 | Quam Elementum Inc.       | 2016-03-17 08:19:38 | 2015-07-31 15:19:21 |
+| 1097 |        99 | Non Company               | 2014-10-18 00:42:52 | 2015-10-06 14:04:34 |
++------+-----------+---------------------------+---------------------+---------------------+
+5 rows in set (0.01 sec)
+
+//Insert three rows into decodemtl_addressbook.Entry
+mysql> INSERT INTO Entry (addressBookId, firstName, lastName, birthday, type, subtype, contentLineOne, contentLineTwo) VALUES(1101, 'Alfred Bertrand', 'Couillard', '1971-11-26 08:20:29', 'home', 'phone', '222-234-3456', NULL), (1101, 'Alfred Bertrand', 'Couillard', '1971-04-12 04:30:29', 'work', 'phone', '222-234-3457', NULL), (1101, 'Alfred Bertrand', 'Couillard', '1975-10-26 08:20:29', 'home', 'address', '234, rue Peel, apt.345', 'Montreal, H5H 6T7');                                               
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM Entry WHERE addressBookId=1101;
++------+---------------+-----------------+-----------+---------------------+------+---------+------------------------+-------------------+------------------+-----------------+-----------------+
+| id   | addressBookId | firstName       | lastName  | birthday            | type | subtype | contentLineOne         | contentLineTwo    | contentLineThree | contentLineFour | contentLineFive |
++------+---------------+-----------------+-----------+---------------------+------+---------+------------------------+-------------------+------------------+-----------------+-----------------+
+| 4001 |          1101 | Alfred Bertrand | Couillard | 1971-11-26 08:20:29 | home | phone   | 222-234-3456           | NULL              | NULL             | NULL            | NULL            |
+| 4002 |          1101 | Alfred Bertrand | Couillard | 1971-04-12 04:30:29 | work | phone   | 222-234-3457           | NULL              | NULL             | NULL            | NULL            |
+| 4003 |          1101 | Alfred Bertrand | Couillard | 1975-10-26 08:20:29 | home | address | 234, rue Peel, apt.345 | Montreal, H5H 6T7 | NULL             | NULL            | NULL            |
++------+---------------+-----------------+-----------+---------------------+------+---------+------------------------+-------------------+------------------+-----------------+-----------------+
 3 rows in set (0.00 sec)
+

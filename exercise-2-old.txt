@@ -1,0 +1,47 @@
+/* Insert one row into decodemtl_addressbook.Account
+*Insert one row into decodemtl_addressbook.AddressBook
+*Insert three rows into decodemtl_addressbook.Entry
+*/
+
+mysql> INSERT INTO decodemtl_addressbook.Account () VALUES();
+Query OK, 1 row affected, 3 warnings (0.01 sec)
+
+mysql> INSERT INTO decodemtl_addressbook.AddressBook () VALUES();                                                                        
+Query OK, 1 row affected, 3 warnings (0.01 sec)
+
+mysql> DESCRIBE Entry;
++------------------+---------------------------------+------+-----+---------+----------------+
+| Field            | Type                            | Null | Key | Default | Extra          |
++------------------+---------------------------------+------+-----+---------+----------------+
+| id               | int(11)                         | NO   | PRI | NULL    | auto_increment |
+| addressBookId    | int(11)                         | NO   |     | NULL    |                |
+| firstName        | varchar(255)                    | NO   |     | NULL    |                |
+| lastName         | varchar(255)                    | YES  |     | NULL    |                |
+| birthday         | datetime                        | YES  |     | NULL    |                |
+| type             | enum('home','work','other')     | NO   |     | NULL    |                |
+| subtype          | enum('phone','address','email') | NO   |     | NULL    |                |
+| contentLineOne   | varchar(255)                    | NO   |     | NULL    |                |
+| contentLineTwo   | varchar(255)                    | YES  |     | NULL    |                |
+| contentLineThree | varchar(255)                    | YES  |     | NULL    |                |
+| contentLineFour  | varchar(255)                    | YES  |     | NULL    |                |
+| contentLineFive  | varchar(255)                    | YES  |     | NULL    |                |
++------------------+---------------------------------+------+-----+---------+----------------+
+12 rows in set (0.01 sec)
+
+mysql> INSERT INTO decodemtl_addressbook.Entry (firstName, type, subtype, contentLineOne) VALUES('Marie','home', 'phone','222-222-2222' );       
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> INSERT INTO decodemtl_addressbook.Entry (firstName, type, subtype, contentLineOne) VALUES('Paul','work', 'address','123, rue ABC, Montreal' );                                                                                                                             
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> INSERT INTO decodemtl_addressbook.Entry (firstName, type, subtype, contentLineOne) VALUES('Jean','home', 'email','jean123@abc.com' );                                                                                                                                      
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> SELECT * FROM Entry;+----+---------------+-----------+----------+----------+------+---------+------------------------+----------------+------------------+-----------------+-----------------+
+| id | addressBookId | firstName | lastName | birthday | type | subtype | contentLineOne         | contentLineTwo | contentLineThree | contentLineFour | contentLineFive |
++----+---------------+-----------+----------+----------+------+---------+------------------------+----------------+------------------+-----------------+-----------------+
+|  1 |             0 | Marie     | NULL     | NULL     | home | phone   | 222-222-2222           | NULL           | NULL             | NULL            | NULL            |
+|  2 |             0 | Paul      | NULL     | NULL     | work | address | 123, rue ABC, Montreal | NULL           | NULL             | NULL            | NULL            |
+|  3 |             0 | Jean      | NULL     | NULL     | home | email   | jean123@abc.com        | NULL           | NULL             | NULL            | NULL            |
++----+---------------+-----------+----------+----------+------+---------+------------------------+----------------+------------------+-----------------+-----------------+
+3 rows in set (0.00 sec)
