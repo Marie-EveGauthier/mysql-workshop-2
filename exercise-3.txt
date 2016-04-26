@@ -1,0 +1,31 @@
+//Retrieve data from the previously inserted decodemtl_addressbook.Account row
+
+mysql> SELECT * FROM Account ORDER BY id DESC LIMIT 1;
++------+-------------+----------+---------------------+---------------------+
+| id   | email       | password | createdOn           | modifiedOn          |
++------+-------------+----------+---------------------+---------------------+
+| 1001 | abc@abc.com | 1234     | 2016-04-26 18:04:54 | 2016-04-26 18:05:13 |
++------+-------------+----------+---------------------+---------------------+
+1 row in set (0.00 sec)
+
+//Retrieve data from the previously inserted decodemtl_addressbook.AddressBook row
+mysql> SELECT * FROM AddressBook ORDER BY id DESC LIMIT 1;                                                                    
++------+-----------+---------------------------+---------------------+---------------------+
+| id   | accountId | name                      | createdOn           | modifiedOn          |
++------+-----------+---------------------------+---------------------+---------------------+
+| 1101 |      1001 | Alfred Bertrand Couillard | 2016-04-26 18:00:14 | 2016-04-26 18:00:14 |
++------+-----------+---------------------------+---------------------+---------------------+
+1 row in set (0.00 sec)
+
+
+//Retrieve data from the previously inserted decodemtl_addressbook.Entry rows
+mysql> SELECT * FROM Entry ORDER BY id DESC LIMIT 3;                                                                         
++------+---------------+-----------------+-----------+---------------------+------+---------+------------------------+-------------------+------------------+-----------------+-----------------+
+| id   | addressBookId | firstName       | lastName  | birthday            | type | subtype | contentLineOne         | contentLineTwo    | contentLineThree | contentLineFour | contentLineFive |
++------+---------------+-----------------+-----------+---------------------+------+---------+------------------------+-------------------+------------------+-----------------+-----------------+
+| 4003 |          1101 | Alfred Bertrand | Couillard | 1975-10-26 08:20:29 | home | address | 234, rue Peel, apt.345 | Montreal, H5H 6T7 | NULL             | NULL            | NULL            |
+| 4002 |          1101 | Alfred Bertrand | Couillard | 1971-04-12 04:30:29 | work | phone   | 222-234-3457           | NULL              | NULL             | NULL            | NULL            |
+| 4001 |          1101 | Alfred Bertrand | Couillard | 1971-11-26 08:20:29 | home | phone   | 222-234-3456           | NULL              | NULL             | NULL            | NULL            |
++------+---------------+-----------------+-----------+---------------------+------+---------+------------------------+-------------------+------------------+-----------------+-----------------+
+3 rows in set (0.00 sec)
+
